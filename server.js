@@ -19,31 +19,13 @@ app.get("/", function (req, res) {
 });
 
 
-function formatDate(date){
-  let utcDate = date.toUTCString();
-  return {
-      "unix": date.getTime(),
-      "utc": utcDate
-  }
-}
-
-app.get("/api/timestamp", function (req, res){
-  res.json(formatDate(new Date()));
-});
-
-
 // your first API endpoint... 
-app.get("/api/timestamp/:date", function (req, res) {
-  
-  // res.json({ format: typeof req.params.date});
-  let inputParameter = req.params.date;
-  
-  if(inputParameter.split("-").length > 1){
-    res.json(formatDate(new Date(inputParameter)));
-  }else {
-    res.json(formatDate(new Date(parseInt(inputParameter))));
-  }
-
+app.get("/api/whoami", function (req, res) {
+  res.json({
+    "ipaddress": req.headers.host,
+    "language": req.headers['accept-language'],
+    "software": req.headers['user-agent']
+  });
 });
 
 
